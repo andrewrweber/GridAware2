@@ -9,7 +9,7 @@ const Config = require('../config.json');
 
 const TOKEN = Config.wattTimeToken;
 
-exports.pubGenInfoToRedis = function subscribe(event, callback) {
+module.exports = (event, callback) => {
     const redisClient = redis.createClient({
         url: Config.redisURI
     });
@@ -45,6 +45,7 @@ exports.pubGenInfoToRedis = function subscribe(event, callback) {
             console.error(err);
         })
         .finally(() => {
+            console.log("Success");
             redisClient.quit();
             callback();
         })    
