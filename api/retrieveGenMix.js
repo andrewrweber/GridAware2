@@ -6,7 +6,7 @@ const redis = require('redis');
 const _ = require('lodash');
 const Config = require('../config.json');
 
-exports.RetrieveGenMix = function RetrieveGenMix(req, res) {
+module.exports = (req, res) => {
     if (!req.body.min || !req.body.max) {
         res.status(400).send('No message defined!');
     }
