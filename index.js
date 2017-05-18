@@ -1,6 +1,8 @@
 const pushGenInfoToRedis = require('./cloudFunctions/pushGenInfoToRedis');
+const RetrieveGenMix = require('./api/RetrieveGenMix');
 
 module.exports = {
-    pubGenInfoToRedis: pushGenInfoToRedis
+    pubGenInfoToRedis: pushGenInfoToRedis,
+    RetrieveGenMix: RetrieveGenMix
 }
 
