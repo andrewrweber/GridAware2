@@ -22,6 +22,8 @@ module.exports = (req, res) => {
     
     redisClient.zrangebyscore('cagenmix', min, max)
         .then((result) => {
+
+            console.log(JSON.parse(result));
             res.status(200).json(result);
         })
         .catch((err) => {
