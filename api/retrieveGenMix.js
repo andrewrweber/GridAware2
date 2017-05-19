@@ -22,7 +22,9 @@ module.exports = (req, res) => {
     
     redisClient.zrangebyscore('cagenmix', min, max)
         .then((result) => {
-            res.status(200).send(JSON.parse(result));
+
+            var temp = JSON.stringify(result);
+            res.status(200).send(JSON.parse(temp));
         })
         .catch((err) => {
             console.error(err);
