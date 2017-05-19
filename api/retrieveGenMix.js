@@ -22,7 +22,7 @@ module.exports = (req, res) => {
     
     redisClient.zrangebyscore('cagenmix', min, max)
         .then((result) => {
-            jsonResult = _.map(result, (element) => {
+            const jsonResult = _.map(result, (element) => {
                 return JSON.parse(element);
             })
             res.status(200).json(jsonResult);
