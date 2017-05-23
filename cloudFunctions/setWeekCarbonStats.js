@@ -16,7 +16,7 @@ module.exports = (event, callback) => {
     });
 
     redisClient.zrangebyscore = Promise.promisify(redisClient.zrangebyscore); 
-    redisClient.set = Promise.promisify(redisClient.set);
+    redisClient.mset = Promise.promisify(redisClient.mset);
 
     redisClient.zrangebyscore('cagenmix', min, max)
         .then((result) => {
@@ -25,13 +25,21 @@ module.exports = (event, callback) => {
             });
             const count = jsonResult.length;
             let totalCarbon = 0;
+            let maxCarbon = 0;
+            let minCarbon = Number.POSITIVE_INFINITY;
 
             _.each(jsonResult, (element) => {
-            totalCarbon += _.get(element, 'carbon', 0);
+                const carbonVal = _.get(element, 'carbon', null);
+                if(carbonVal) {
+                    totalCarbon += carbonVal;
+                    if(carbonVal > maxCarbon) { maxCarbon = carbonVal; }
+                    if(carbonVal < minCarbon) { minCarbon = carbonVal; }                    
+                }
+
             });
             let weeklyAvgCarbon = totalCarbon / count;
 
-            return redisClient.set('cagenmix:weekaverage', weeklyAvgCarbon);
+            return redisClient.mset(['cagenmix:weekaverage', weeklyAvgCarbon, 'cagenmix:weekmin', minCarbon, 'cagenmix:weekmax', maxCarbon]);
         })
         .catch((err) => {
             console.error(err);
@@ -43,3 +51,4 @@ module.exports = (event, callback) => {
             }
         })
 }
+

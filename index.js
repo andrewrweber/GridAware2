@@ -1,12 +1,12 @@
 const pushGenInfoToRedis = require('./cloudFunctions/pushGenInfoToRedis');
-const SetWeekAvgCarbon = require('./cloudFunctions/setWeekAvgCarbon');
+const SetWeekCarbonStats = require('./cloudFunctions/setWeekCarbonStats');
 const RetrieveGenMix = require('./api/retrieveGenMix');
-const GetWeekAvgCarbon = require('./api/getWeekAvgCarbon');
+const GetWeekCarbonStats = require('./api/GetWeekCarbonStats');
 
 module.exports = {
     pubGenInfoToRedis: pushGenInfoToRedis,
     RetrieveGenMix: RetrieveGenMix,
-    SetWeekAvgCarbon: SetWeekAvgCarbon,
-    GetWeekAvgCarbon: GetWeekAvgCarbon
+    SetWeekCarbonStats: SetWeekCarbonStats,
+    GetWeekCarbonStats: GetWeekCarbonStats
 }
 
