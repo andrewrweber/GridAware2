@@ -5,8 +5,7 @@ const redis = require('redis');
 const _ = require('lodash');
 const Config = require('../config.json');
 
-// module.exports = (req, res) => {
-const test = () => {
+module.exports = (req, res) => {
     const redisClient = redis.createClient({
         url: Config.redisURI
     });
@@ -28,5 +27,3 @@ const test = () => {
             redisClient.quit();
         })
 }
-
-test();
