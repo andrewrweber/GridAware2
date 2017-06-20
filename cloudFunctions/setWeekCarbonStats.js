@@ -27,6 +27,7 @@ module.exports = (event, callback) => {
             let totalCarbon = 0;
             let maxCarbon = 0;
             let minCarbon = Number.POSITIVE_INFINITY;
+            let currentCarbon = _.get(jsonResult[0], 'carbon', null)
 
             _.each(jsonResult, (element) => {
                 const carbonVal = _.get(element, 'carbon', null);
@@ -39,7 +40,7 @@ module.exports = (event, callback) => {
             });
             let weeklyAvgCarbon = totalCarbon / count;
 
-            return redisClient.mset(['cagenmix:weekaverage', weeklyAvgCarbon, 'cagenmix:weekmin', minCarbon, 'cagenmix:weekmax', maxCarbon]);
+            return redisClient.mset(['cagenmix:current',currentCarbon, 'cagenmix:weekaverage', weeklyAvgCarbon, 'cagenmix:weekmin', minCarbon, 'cagenmix:weekmax', maxCarbon]);
         })
         .catch((err) => {
             console.error(err);
