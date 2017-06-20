@@ -12,12 +12,13 @@ module.exports = (req, res) => {
     
     redisClient.mget = Promise.promisify(redisClient.mget); 
     
-    redisClient.mget(['cagenmix:weekaverage', 'cagenmix:weekmin', 'cagenmix:weekmax'])
+    redisClient.mget(['cagenmix:weekaverage', 'cagenmix:weekmin', 'cagenmix:weekmax', 'cagenmix:current'])
         .then((result) => {
             res.status(200).json({
                 "weekAvgCarbon": result[0],
                 "weekMinCarbon": result[1],
-                "weekMaxCarbon": result[2]
+                "weekMaxCarbon": result[2],
+                "currentCarbon": result[3]
             });
         })
         .catch((err) => {
