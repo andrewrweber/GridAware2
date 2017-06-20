@@ -11,6 +11,10 @@ module.exports = (req, res) => {
         res.status(400).send('No message defined!');
     }
     
+    res.header('Content-Type','application/json');
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    
     const min = req.body.min;
     const max = req.body.max;
 
