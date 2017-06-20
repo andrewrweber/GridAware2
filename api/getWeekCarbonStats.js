@@ -10,6 +10,10 @@ module.exports = (req, res) => {
         url: Config.redisURI
     });
     
+    res.header('Content-Type','application/json');
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+
     redisClient.mget = Promise.promisify(redisClient.mget); 
     
     redisClient.mget(['cagenmix:weekaverage', 'cagenmix:weekmin', 'cagenmix:weekmax', 'cagenmix:current'])
